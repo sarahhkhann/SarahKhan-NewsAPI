@@ -12,7 +12,6 @@ import retrofit2.Response
 class NewsListViewModel : ViewModel() {
     private val _articles = MutableLiveData<List<Article>>()
     val articles: LiveData<List<Article>> get() = _articles
-    //val categories = MutableLiveData<List<String>>(listOf("business", "entertainment", "sports", "science", "technology", "health"))
 
     private val apiService: APIService by lazy {
         Retrofit.Builder()
@@ -23,7 +22,7 @@ class NewsListViewModel : ViewModel() {
     }
 
     init {
-        fetchNewsArticles("business")
+        fetchNewsArticles("sports")
     }
 
     fun fetchNewsArticles(category: String) {
