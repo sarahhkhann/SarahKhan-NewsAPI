@@ -1,5 +1,7 @@
 package com.example.sarahkhan_newsapp
 
+import java.io.Serializable
+
 data class News(
     val status: String,
     val totalResults: Int,
@@ -15,7 +17,7 @@ data class Article(
     val urlToImage: String?,
     val publishedAt: String,
     val content: String?
-)
+) :Serializable
 
 data class Source(
     val id: String?,

@@ -25,7 +25,8 @@ class ArticleHolder(
     }
 }
 class NewsListAdapter(
-    private var articles: List<Article>
+    private var articles: List<Article>,
+    private val onArticleClicked: (Article) -> Unit
 ) : RecyclerView.Adapter<ArticleHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,6 +40,8 @@ class NewsListAdapter(
     override fun onBindViewHolder(holder: ArticleHolder, position: Int) {
         val article = articles[position]
         holder.bind(article)
+        holder.itemView.setOnClickListener { onArticleClicked(article) }
+
     }
 
     // Method to update the list of articles and refresh the adapter

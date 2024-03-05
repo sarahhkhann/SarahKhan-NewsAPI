@@ -1,11 +1,12 @@
 package com.example.sarahkhan_newsapp
 
-import android.R
+import com.example.sarahkhan_newsapp.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
@@ -15,9 +16,8 @@ import com.example.sarahkhan_newsapp.databinding.FragmentNewslistfragmentBinding
 class NewsListFragment : Fragment() {
     private var binding: FragmentNewslistfragmentBinding? = null
     private val viewModel: NewsListViewModel by viewModels()
-    private val newsListAdapter = NewsListAdapter(emptyList())
     private val categories = arrayOf("business", "technology", "sports", "health", "science", "entertainment")
-
+    private var newsListAdapter = NewsListAdapter(emptyList()) { articles -> onArticleClick(articles) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +37,7 @@ class NewsListFragment : Fragment() {
 
     private fun spinnercreate() {
         binding?.categoryspinner?.let { spinner ->
-            val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, categories)
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, categories)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
             spinner.adapter = adapter
@@ -59,6 +59,17 @@ class NewsListFragment : Fragment() {
         }
     }
 
+    private fun onArticleClick(articles: Article) {
+        val detailfragment = NewsDetailFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable("article", articles)
+            }
+        }
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, detailfragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
