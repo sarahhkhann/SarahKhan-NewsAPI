@@ -38,6 +38,9 @@ class NewsDetailFragment : Fragment() {
 
         }
 
+        binding?.backbutton?.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
     }
 
